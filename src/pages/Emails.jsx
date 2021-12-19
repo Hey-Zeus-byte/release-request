@@ -100,7 +100,11 @@ const Emails = () => {
         <li className="crimson">Email: {contacts[4].email}</li>
         <li>Company: {contacts[4].company}</li>
       </ul>
-
+      <ul>
+        <li>Name: {contacts[5].name}</li>
+        <li className="crimson">Email: {contacts[5].email}</li>
+        <li>Company: {contacts[5].company}</li>
+      </ul>
       <button
         onClick={() => {
           navigate("/releaserequest");
