@@ -1,0 +1,22 @@
+.ReleaseRequest {
+    color: lightcyan;
+    align-content: left;
+  }
+  
+  body {
+    background-color: gray;
+  }
+  
+  .double {
+    outline-style: double;
+    width: 60%;
+    margin: 5px;
+  }
+  
+  .submitbutton {
+    background-color: lightgreen;
+  }
+  .emailbutton {
+    background-color: lightcoral;
+  }
+  
