@@ -95,6 +95,12 @@ const Emails = () => {
         <li className="crimson">Email: {contacts[3].email}</li>
         <li>Company: {contacts[3].company}</li>
       </ul>
+      <ul>
+        <li>Name: {contacts[4].name}</li>
+        <li className="crimson">Email: {contacts[4].email}</li>
+        <li>Company: {contacts[4].company}</li>
+      </ul>
+
       <button
         onClick={() => {
           navigate("/releaserequest");
