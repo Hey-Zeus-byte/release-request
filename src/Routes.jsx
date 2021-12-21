@@ -5,7 +5,7 @@ import ReleaseRequest from "./pages/ReleaseRequest";
 const Routes = () => {
   return (
     <BrowserRoutes>
-      <Route path="/releaserequest" element={<ReleaseRequest />} />
+      <Route path="/" element={<ReleaseRequest />} />
       <Route path="/emails" element={<Emails />} />
     </BrowserRoutes>
   );

@@ -75,39 +75,39 @@ const Emails = () => {
 
   return (
     <div>
-      <ul>
+      <ul className='emailList'>
         <li>Name: {contacts[0].name}</li>
         <li className="crimson">Email: {contacts[0].email}</li>
         <li>Company: {contacts[0].company}</li>
       </ul>
-      <ul>
+      <ul className='emailList'>
         <li>Name: {contacts[1].name}</li>
         <li className="crimson">Email: {contacts[1].email}</li>
         <li>Company: {contacts[1].company}</li>
       </ul>
-      <ul>
+      <ul className='emailList'>
         <li>Name: {contacts[2].name}</li>
         <li className="crimson">Email: {contacts[2].email}</li>
         <li>Company: {contacts[2].company}</li>
       </ul>
-      <ul>
+      <ul className='emailList'>
         <li>Name: {contacts[3].name}</li>
         <li className="crimson">Email: {contacts[3].email}</li>
         <li>Company: {contacts[3].company}</li>
       </ul>
-      <ul>
+      <ul className='emailList'>
         <li>Name: {contacts[4].name}</li>
         <li className="crimson">Email: {contacts[4].email}</li>
         <li>Company: {contacts[4].company}</li>
       </ul>
-      <ul>
+      <ul className='emailList'>
         <li>Name: {contacts[5].name}</li>
         <li className="crimson">Email: {contacts[5].email}</li>
         <li>Company: {contacts[5].company}</li>
       </ul>
       <button
         onClick={() => {
-          navigate("/releaserequest");
+          navigate("/");
         }}
         className="submitbutton"
       >

@@ -1,14 +1,11 @@
-li {
+.emailList {
     font-size: 20px;
     color: black;
     background-color: lightcyan;
     margin: 10px;
-  }
-  ul {
     border-style: double;
-    background-color: darkcyan;
   }
-  .crimson {
+.crimson {
     color: crimson;
   }
   

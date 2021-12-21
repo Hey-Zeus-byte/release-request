@@ -1,9 +1,11 @@
 import React from "react";
 import Routes from "./Routes";
+import NavBar from "./NavBar";
 
 const App = () => {
   return (
-    <div className="App">
+    <div>
+      <NavBar />
       <Routes />
     </div>
   );

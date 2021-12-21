@@ -36,8 +36,8 @@ const ReleaseRequest = () => {
 
   return (
     <div className="ReleaseRequest">
-      <h1>Release Request Generator</h1>
-      <h2>
+      <h1 className="header">Release Request Generator</h1>
+      <h2 className='header2'>
         Please enter the information needed to generate a release request:
       </h2>
       <button
@@ -53,7 +53,7 @@ const ReleaseRequest = () => {
         <input
           type="text"
           name="vendor"
-          className="double"
+          className="inputs"
           value={state.vendor}
           onChange={handleInput}
           placeholder="Vendor:"
@@ -61,7 +61,7 @@ const ReleaseRequest = () => {
         <input
           type="text"
           name="jobName"
-          className="double"
+          className="inputs"
           value={state.jobName}
           onChange={handleInput}
           placeholder="Job:"
@@ -69,7 +69,7 @@ const ReleaseRequest = () => {
         <input
           type="text"
           name="release"
-          className="double"
+          className="inputs"
           value={state.release}
           onChange={handleInput}
           placeholder="Type of Release:"
@@ -77,7 +77,7 @@ const ReleaseRequest = () => {
         <input
           type="text"
           name="thruDate"
-          className="double"
+          className="inputs"
           value={state.thruDate}
           onChange={handleInput}
           placeholder="Through Date:"
