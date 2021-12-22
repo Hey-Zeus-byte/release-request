@@ -1,11 +1,10 @@
 .emailList {
-    font-size: 20px;
-    color: black;
-    background-color: lightcyan;
-    margin: 10px;
-    border-style: double;
-  }
+  font-size: 20px;
+  color: black;
+  background-color: lightcyan;
+  margin: 10px;
+  border-style: double;
+}
 .crimson {
-    color: crimson;
-  }
-  
+  color: crimson;
+}

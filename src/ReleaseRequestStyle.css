@@ -1,37 +1,36 @@
 .ReleaseRequest {
-    color: lightcyan;
-  }
-  
-  .header {
-    font-size: 50px;
-    text-align: center;
-  }
-  .header2 {
-    font-size: 25px;
-    text-align: center;
-  }
+  color: lightcyan;
+}
 
-  body {
-    background-color: gray;
-  }
-  
-  .inputs {
-    outline-style: double;
-    width: 60%;
-    margin: 8px; 
-    padding: 8px 15px;
-    
-  }
-  
-  .submitbutton {
-    background-color: lightgreen;
-    font-size: 20px;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-    cursor: pointer;
-    }
-  .emailbutton {
-    background-color: lightcoral;
-    font-size: 20px;
-    display: flex ;
-  }
-  
+.header {
+  font-size: 50px;
+  text-align: center;
+}
+.header2 {
+  font-size: 25px;
+  text-align: center;
+}
+
+body {
+  background-color: gray;
+}
+
+.inputs {
+  outline-style: double;
+  width: 60%;
+  margin: 8px;
+  padding: 8px 15px;
+}
+
+.submitbutton {
+  background-color: lightgreen;
+  font-size: 20px;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  cursor: pointer;
+}
+.emailbutton {
+  background-color: lightcoral;
+  font-size: 20px;
+  display: flex;
+}

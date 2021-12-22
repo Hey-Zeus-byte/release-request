@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
 import "../ReleaseRequestStyle.css";
 
 const ReleaseRequest = () => {
@@ -7,15 +7,15 @@ const ReleaseRequest = () => {
     vendor: "",
     jobName: "",
     release: "",
-    thruDate: ""
+    thruDate: "",
   });
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleInput = (e) => {
     setState({
       ...state,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -37,7 +37,7 @@ const ReleaseRequest = () => {
   return (
     <div className="ReleaseRequest">
       <h1 className="header">Release Request Generator</h1>
-      <h2 className='header2'>
+      <h2 className="header2">
         Please enter the information needed to generate a release request:
       </h2>
       <button
