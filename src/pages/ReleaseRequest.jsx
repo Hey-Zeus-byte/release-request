@@ -42,7 +42,7 @@ const ReleaseRequest = () => {
       </h2>
       <button
         onClick={() => {
-          navigate("/emails");
+          navigate("/release-request/emails");
         }}
         className="emailbutton"
       >
