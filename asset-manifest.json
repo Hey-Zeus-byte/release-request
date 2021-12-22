@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/release-request/static/css/main.edbe484e.css",
+    "main.js": "/release-request/static/js/main.93fd4703.js",
+    "index.html": "/release-request/index.html",
+    "main.edbe484e.css.map": "/release-request/static/css/main.edbe484e.css.map",
+    "main.93fd4703.js.map": "/release-request/static/js/main.93fd4703.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.edbe484e.css",
+    "static/js/main.93fd4703.js"
+  ]
+}
