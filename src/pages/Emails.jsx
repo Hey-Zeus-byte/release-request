@@ -107,7 +107,7 @@ const Emails = () => {
       </ul>
       <button
         onClick={() => {
-          navigate("/release-request");
+          navigate("/");
         }}
         className="submitbutton"
       >

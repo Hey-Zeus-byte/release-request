@@ -19,19 +19,12 @@ const ReleaseRequest = () => {
     });
   };
 
-  const handleSubmit = () => {
-    if (true) {
-      // const message =
-      window.alert(
-        "Hello, can you please send me a" +
-          ` ${state.release}` +
-          " release through" +
-          ` ${state.thruDate}` +
-          " for" +
-          ` ${state.jobName}` +
-          "?"
-      );
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    window.alert(
+      `Hello, can you please send me a ${state.release}
+      release through ${state.thruDate} for ${state.jobName} ?`
+    );
   };
 
   return (
@@ -42,7 +35,7 @@ const ReleaseRequest = () => {
       </h2>
       <button
         onClick={() => {
-          navigate("/release-request/emails");
+          navigate("/emails");
         }}
         className="emailbutton"
       >
