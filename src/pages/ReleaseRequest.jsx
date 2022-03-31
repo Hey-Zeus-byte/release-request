@@ -59,14 +59,48 @@ const ReleaseRequest = () => {
           onChange={handleInput}
           placeholder="Job:"
         />
-        <input
+        <select className="inputs">
+          <option
+            onChange={handleInput}
+            type="text"
+            name="release"
+            value={state.release}
+          >
+            Conditional Progress
+          </option>
+          <option
+            onChange={handleInput}
+            type="text"
+            name="release"
+            value={state.release}
+          >
+            Unconditional Progress
+          </option>
+          <option
+            onChange={handleInput}
+            type="text"
+            name="release"
+            value={state.release}
+          >
+            Conditional Final
+          </option>
+          <option
+            onChange={handleInput}
+            type="text"
+            name="release"
+            value={state.release}
+          >
+            Unconditional Final
+          </option>
+        </select>
+        {/* <input
           type="text"
           name="release"
           className="inputs"
           value={state.release}
           onChange={handleInput}
           placeholder="Type of Release:"
-        />
+        /> */}
         <input
           type="text"
           name="thruDate"

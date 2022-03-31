@@ -80,7 +80,7 @@ const Emails = () => {
         <li className="crimson">Email: {contacts[0].email}</li>
         <li>Company: {contacts[0].company}</li>
       </ul>
-      <ul className="emailList">
+      <ul className="emailList2">
         <li>Name: {contacts[1].name}</li>
         <li className="crimson">Email: {contacts[1].email}</li>
         <li>Company: {contacts[1].company}</li>
@@ -90,7 +90,7 @@ const Emails = () => {
         <li className="crimson">Email: {contacts[2].email}</li>
         <li>Company: {contacts[2].company}</li>
       </ul>
-      <ul className="emailList">
+      <ul className="emailList2">
         <li>Name: {contacts[3].name}</li>
         <li className="crimson">Email: {contacts[3].email}</li>
         <li>Company: {contacts[3].company}</li>
@@ -100,11 +100,47 @@ const Emails = () => {
         <li className="crimson">Email: {contacts[4].email}</li>
         <li>Company: {contacts[4].company}</li>
       </ul>
-      <ul className="emailList">
+      <ul className="emailList2">
         <li>Name: {contacts[5].name}</li>
         <li className="crimson">Email: {contacts[5].email}</li>
         <li>Company: {contacts[5].company}</li>
       </ul>
+      <ul className="emailList">
+        <li>Name: {contacts[6].name}</li>
+        <li className="crimson">Email: {contacts[6].email}</li>
+        <li>Company: {contacts[6].company}</li>
+      </ul>
+      <ul className="emailList2">
+        <li>Name: {contacts[7].name}</li>
+        <li className="crimson">Email: {contacts[7].email}</li>
+        <li>Company: {contacts[7].company}</li>
+      </ul>
+      <ul className="emailList">
+        <li>Name: {contacts[8].name}</li>
+        <li className="crimson">Email: {contacts[8].email}</li>
+        <li>Company: {contacts[8].company}</li>
+      </ul>
+      <ul className="emailList2">
+        <li>Name: {contacts[9].name}</li>
+        <li className="crimson">Email: {contacts[9].email}</li>
+        <li>Company: {contacts[9].company}</li>
+      </ul>
+      <ul className="emailList">
+        <li>Name: {contacts[10].name}</li>
+        <li className="crimson">Email: {contacts[10].email}</li>
+        <li>Company: {contacts[10].company}</li>
+      </ul>
+      <ul className="emailList2">
+        <li>Name: {contacts[11].name}</li>
+        <li className="crimson">Email: {contacts[11].email}</li>
+        <li>Company: {contacts[11].company}</li>
+      </ul>
+      <ul className="emailList">
+        <li>Name: {contacts[12].name}</li>
+        <li className="crimson">Email: {contacts[12].email}</li>
+        <li>Company: {contacts[12].company}</li>
+      </ul>
+
       <button
         onClick={() => {
           navigate("/");
