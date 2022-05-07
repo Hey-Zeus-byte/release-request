@@ -21,15 +21,13 @@ const ReleaseRequest = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    window.alert(
-      `Hello, can you please send me a ${state.release}
-      release through ${state.thruDate} for ${state.jobName} ?`
-    );
   };
 
   return (
     <div className="ReleaseRequest">
       <h1 className="header">Release Request Generator</h1>
+      <h1 className="header">Work in progress...</h1>
+
       <h2 className="header2">
         Please enter the information needed to generate a release request:
       </h2>
@@ -93,14 +91,6 @@ const ReleaseRequest = () => {
             Unconditional Final
           </option>
         </select>
-        {/* <input
-          type="text"
-          name="release"
-          className="inputs"
-          value={state.release}
-          onChange={handleInput}
-          placeholder="Type of Release:"
-        /> */}
         <input
           type="text"
           name="thruDate"
@@ -112,6 +102,11 @@ const ReleaseRequest = () => {
         <button onClick={handleSubmit} className="submitbutton">
           Submit
         </button>
+        <h2>Copy and past the following text:</h2>
+        <h1>
+          {`Hello, can you please send me a ${state.release.toString()} through 
+          ${state.thruDate} for ${state.jobName} ?`}
+        </h1>
       </form>
     </div>
   );
