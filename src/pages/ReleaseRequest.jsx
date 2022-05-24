@@ -1,14 +1,16 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "../ReleaseRequestStyle.css";
+// import contactList from "./Emails";
 
 const ReleaseRequest = () => {
   const [state, setState] = useState({
-    vendor: "",
+    name: "",
     jobName: "",
-    release: "",
     thruDate: "",
   });
+
+  const [release, setRelease] = useState();
 
   const navigate = useNavigate();
 
@@ -19,17 +21,13 @@ const ReleaseRequest = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-
   return (
     <div className="ReleaseRequest">
       <h1 className="header">Release Request Generator</h1>
-      <h1 className="header">Work in progress...</h1>
 
       <h2 className="header2">
-        Please enter the information needed to generate a release request:
+        Please enter the information needed to generate a release request
+        statement:
       </h2>
       <button
         onClick={() => {
@@ -43,11 +41,11 @@ const ReleaseRequest = () => {
       <form>
         <input
           type="text"
-          name="vendor"
+          name="name"
           className="inputs"
-          value={state.vendor}
+          value={state.name}
           onChange={handleInput}
-          placeholder="Vendor:"
+          placeholder="Name:"
         />
         <input
           type="text"
@@ -57,39 +55,16 @@ const ReleaseRequest = () => {
           onChange={handleInput}
           placeholder="Job:"
         />
-        <select className="inputs">
-          <option
-            onChange={handleInput}
-            type="text"
-            name="release"
-            value={state.release}
-          >
-            Conditional Progress
-          </option>
-          <option
-            onChange={handleInput}
-            type="text"
-            name="release"
-            value={state.release}
-          >
-            Unconditional Progress
-          </option>
-          <option
-            onChange={handleInput}
-            type="text"
-            name="release"
-            value={state.release}
-          >
-            Conditional Final
-          </option>
-          <option
-            onChange={handleInput}
-            type="text"
-            name="release"
-            value={state.release}
-          >
-            Unconditional Final
-          </option>
+        <select
+          className="inputs"
+          onChange={(e) => {
+            setRelease(e.target.value);
+          }}
+        >
+          <option value="Conditional Progress">Conditional Progress</option>
+          <option value="Unconditional Progress">Unconditional Progress</option>
+          <option value="Conditional Final">Conditional Final</option>
+          <option value="Unconditional Final">Unconditional Final</option>
         </select>
         <input
           type="text"
@@ -99,14 +74,13 @@ const ReleaseRequest = () => {
           onChange={handleInput}
           placeholder="Through Date:"
         />
-        <button onClick={handleSubmit} className="submitbutton">
-          Submit
-        </button>
         <h2>Copy and past the following text:</h2>
+        <h1>{`Hello, ${state.name}`}</h1>
         <h1>
-          {`Hello, can you please send me a ${state.release.toString()} through 
+          {`Can you please send me a ${release} through 
           ${state.thruDate} for ${state.jobName} ?`}
         </h1>
+        <h1>Thank You!</h1>
       </form>
     </div>
   );
