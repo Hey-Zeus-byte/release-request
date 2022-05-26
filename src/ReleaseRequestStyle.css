@@ -17,14 +17,15 @@ body {
 
 .inputs {
   outline-style: double;
-  width: 60%;
+  width: 40%;
   margin: 8px;
   padding: 8px 15px;
+  font-size: 20px;
 }
 
 .submitbutton {
   background-color: lightgreen;
-  font-size: 20px;
+  font-size: 25px;
   box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
     0 17px 50px 0 rgba(0, 0, 0, 0.19);
   cursor: pointer;
@@ -33,4 +34,7 @@ body {
   background-color: lightcoral;
   font-size: 20px;
   display: flex;
+}
+form {
+  text-align: center;
 }
