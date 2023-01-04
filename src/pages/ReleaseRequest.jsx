@@ -110,11 +110,9 @@ const ReleaseRequest = () => {
         value={copyText}
         onChange={handleCopyText}
       >
-        {`Hello, ${state.name}`} <b />
-        {`Can you please send me a ${release} `}
-        <span>{finalRelease()}</span>
-        {`for ${state.jobName}?`} <b />
-        Thank You!
+        {`Hello, ${state.name} `} {`Can you please send me a ${release} `}
+        <span>{finalRelease()}</span> {`for ${state.jobName}? `}
+        {`Thank You!`}
       </div>
       <button onClick={copyToClipboard}>Copy to Clipboard</button>
     </div>
