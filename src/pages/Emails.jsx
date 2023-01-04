@@ -1,128 +1,159 @@
-import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import "../EmailStyle.css";
-import "../ReleaseRequestStyle.css";
+import React, { useEffect, useState } from "react";
+import { db } from "../utils/firebase-config";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import styled from "styled-components";
+import { Button } from "./Button";
+
+const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Input = styled.input`
+  display: flex;
+  width: 400px;
+  height: 40px;
+`;
+
+const ContactWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border: 2px solid black;
+  line-height: 10px;
+`;
+
+const Contact = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  line-height: 10px;
+`;
+
+const Text = styled.p`
+  text-transform: capitalize;
+  font-size: 30px;
+  font-weight: 600;
+  margin-left: 50px;
+`;
+const SearchNote = styled.input``;
 
 const Emails = () => {
-  const navigate = useNavigate();
-  const contacts = [
-    {
-      id: 0,
-      name: "J Valdez",
-      email: "valdezj@gscfinc.com",
-      company: "Golden State Construction & Framing, Inc.",
-    },
-    {
-      id: 1,
-      name: "Chris Both",
-      email: "cboth@goldenstatelumber.com",
-      company: "Golden State Lumber, Inc.",
-    },
-    {
-      id: 2,
-      name: "Irma Bara-Zapien",
-      email: "ibara-zapien@southerncarlson.com",
-      company: "Southern Carlson",
-    },
-    {
-      id: 3,
-      name: "Melissa",
-      email: "melissa@calnail.com",
-      company: "California Nail & Supply, Inc.",
-    },
-    {
-      id: 4,
-      name: "Andrea",
-      email: "prelien@pjsrebar.com",
-      company: "PJ’s Rebar",
-    },
-    {
-      id: 5,
-      name: "Karen Purdy",
-      email: "Karen.Purdy@whitecap.com",
-      company: "White Cap",
-    },
-    {
-      id: 6,
-      name: "Martha A Asfaw",
-      email: "Martha.Asfaw@lehighHanson.com",
-      company: "Lehigh Hanson",
-    },
-    {
-      id: 7,
-      name: "Melissa Miranda",
-      email: "melissa.miranda@cemex.com",
-      company: "CEMEX",
-    },
-    {
-      id: 8,
-      name: "Leigha Bennett",
-      email: "leigha.bennett@norcallumber.com",
-      company: "Norcal Lumber",
-    },
-    {
-      id: 9,
-      name: "Chrissy Lencioni",
-      email: "alliedconcretepumping@yahoo.com",
-      company: "Allied Concrete Pumping",
-    },
-    {
-      id: 10,
-      name: "Meagan Kubinski",
-      email: "releases@wcsg.com",
-      company: "West Coast Sand & Gravel, Inc.",
-    },
-    {
-      id: 11,
-      name: "Angie Lewis",
-      email: "angie.lewis@paccoast.com",
-      company: "Pacific Supply",
-    },
-    {
-      id: 12,
-      name: "Wendy Madsen",
-      email: "Wendy.Madsen@lwsupply.com",
-      company: "L&W Supply",
-    },
-  ];
+  const [contacts, setContacts] = useState([]);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [filteredContacts, setFilteredContacts] = useState("");
+  const [searchShow, setSearchShow] = useState(true);
 
-  const [contactList, setContactList] = useState(contacts);
+  const contactsCollectionRef = collection(db, "contacts");
 
-  const handleSubmit = (e) => {
-    e.preventDefulat();
-    setContactList({
-      name: e.target.value,
-      email: e.target.value,
-      company: e.target.value,
+  useEffect(() => {
+    const getContacts = async () => {
+      const data = await getDocs(contactsCollectionRef);
+      const items = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setContacts(items);
+    };
+
+    getContacts();
+  }, []);
+
+  const createContact = async () => {
+    await addDoc(contactsCollectionRef, {
+      name: name,
+      email: email,
+      company: company,
+    }).catch((err) => {
+      alert(err);
+      console.error(err);
     });
   };
+
+  const deleteContact = async (id) => {
+    const bidDoc = doc(db, "contacts", id);
+    await deleteDoc(bidDoc);
+  };
+
+  const handleChange = (e) => {
+    const searchWord = e.target.value;
+    const newFilter = contacts.filter((contact) => {
+      return contact.company.toLowerCase().includes(searchWord.toLowerCase());
+    });
+    setFilteredContacts(newFilter);
+    if (newFilter === "") {
+      setSearchShow(true);
+    } else {
+      setSearchShow(false);
+    }
+  };
+
+  const contactsToRender = searchShow ? contacts : filteredContacts;
 
   return (
     <div>
       <h2>Enter contact information:</h2>
-      <form>
-        <input placeholder="Enter contact name: "></input>
-        <input placeholder="Enter contact email: "></input>
-        <input placeholder="Enter contact company: "></input>
-        <button onSubmit={handleSubmit}>Add Contact</button>
-      </form>
-      {contactList.map((c) => {
+      <InputWrapper>
+        <Input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Enter contact name: "
+        ></Input>
+        <Input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter contact email: "
+        ></Input>
+        <Input
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+          placeholder="Enter contact company: "
+        ></Input>
+        <Button
+          text="Add Contact"
+          color="lightgreen"
+          onClick={() => createContact()}
+        >
+          Add Contact
+        </Button>
+        <SearchNote
+          placeholder="Search for company..."
+          type="text"
+          onChange={handleChange}
+        />
+      </InputWrapper>
+      {contactsToRender.map((contact) => {
         return (
-          <div key={c.id} className="emailList">
-            <h1>{c.name}</h1>
-            <h1 className="crimson">{c.email}</h1>
-            <h1>{c.company}</h1>
-          </div>
+          <ContactWrapper key={contact.id}>
+            <Contact>
+              <Text>Contact Name: {contact.name}</Text>
+              <Text>Email: {contact.email}</Text>
+              <Text>Company: {contact.company}</Text>
+            </Contact>
+            <div>
+              <Button
+                text="Delete"
+                color="red"
+                marginRight="20px"
+                onClick={() => deleteContact(contact.id)}
+              ></Button>
+              <Button
+                text="Copy Email"
+                color="lightgreen"
+                marginRight="20px"
+                onClick={() => navigator.clipboard.writeText(contact.email)}
+              ></Button>
+            </div>
+          </ContactWrapper>
         );
       })}
-      <button
-        onClick={() => {
-          navigate("/");
-        }}
-        className="submitbutton"
-      >
-        Go back to release request generator
-      </button>
     </div>
   );
 };
