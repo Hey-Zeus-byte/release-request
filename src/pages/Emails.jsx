@@ -9,41 +9,80 @@ import {
 } from "firebase/firestore";
 import styled from "styled-components";
 import { Button } from "./Button";
+import { ContentWrapper } from "./ContentWrapper";
 
 const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media only screen and (max-width: 500px) {
+    align-items: flex-start;
+  }
 `;
 
 const Input = styled.input`
   display: flex;
   width: 400px;
   height: 40px;
+
+  @media only screen and (max-width: 500px) {
+    width: 250px;
+  }
 `;
 
 const ContactWrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
   border: 2px solid black;
   line-height: 10px;
+  background-color: white;
+
+  @media only screen and (max-width: 500px) {
+  }
 `;
 
 const Contact = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: space-between;
   line-height: 10px;
+
+  .contact-email {
+    cursor: pointer;
+    text-transform: lowercase;
+
+    &:hover {
+      color: red;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .contact-text {
+      font-size: 11px;
+    }
+
+    .contact-email {
+      font-size: 11px;
+      cursor: pointer;
+      text-transform: lowercase;
+
+      &:hover {
+        color: red;
+      }
+    }
+  }
 `;
 
 const Text = styled.p`
   text-transform: capitalize;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 600;
-  margin-left: 50px;
+
+  @media only screen and (max-width: 500px) {
+    font-size: 20px;
+    font-weight: 500;
+  }
 `;
+
 const SearchNote = styled.input``;
 
 const Emails = () => {
@@ -64,7 +103,7 @@ const Emails = () => {
     };
 
     getContacts();
-  }, []);
+  });
 
   const createContact = async () => {
     await addDoc(contactsCollectionRef, {
@@ -98,8 +137,7 @@ const Emails = () => {
   const contactsToRender = searchShow ? contacts : filteredContacts;
 
   return (
-    <div>
-      <h2>Enter contact information:</h2>
+    <ContentWrapper>
       <InputWrapper>
         <Input
           value={name}
@@ -129,32 +167,31 @@ const Emails = () => {
           onChange={handleChange}
         />
       </InputWrapper>
+      <Contact>
+        <div>Company</div>
+        <div>Name</div>
+        <div>Email</div>
+        <div>Number</div>
+        <div>Options</div>
+      </Contact>
       {contactsToRender.map((contact) => {
         return (
-          <ContactWrapper key={contact.id}>
-            <Contact>
-              <Text>Contact Name: {contact.name}</Text>
-              <Text>Email: {contact.email}</Text>
-              <Text>Company: {contact.company}</Text>
-            </Contact>
-            <div>
-              <Button
-                text="Delete"
-                color="red"
-                marginRight="20px"
-                onClick={() => deleteContact(contact.id)}
-              ></Button>
-              <Button
-                text="Copy Email"
-                color="lightgreen"
-                marginRight="20px"
-                onClick={() => navigator.clipboard.writeText(contact.email)}
-              ></Button>
-            </div>
-          </ContactWrapper>
+          <Contact key={contact.id}>
+            <Text>{contact.company}</Text> <Text>{contact.name}</Text>
+            <Text onClick={() => navigator.clipboard.writeText(contact.email)}>
+              {contact.email}
+            </Text>
+            <div>Number</div>
+            <Button
+              text="Delete"
+              color="red"
+              marginRight="20px"
+              onClick={() => deleteContact(contact.id)}
+            ></Button>
+          </Contact>
         );
       })}
-    </div>
+    </ContentWrapper>
   );
 };
 

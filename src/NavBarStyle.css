@@ -1,7 +1,12 @@
 .NavBar {
-    color: black;
-    background-color: lightcoral;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    border-style: double;
+  color: black;
+  background-color: lightcoral;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-style: double;
+  list-style-type: none;
+
+  @media only screen and (max-width: 500px) {
+  }
 }
