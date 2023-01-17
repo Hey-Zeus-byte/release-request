@@ -125,9 +125,13 @@ const Emails = () => {
   const contactsCollectionRef = collection(db, "contacts");
 
   // useEffect(() => {
+  //   if (contacts.length) {
+  //     return;
+  //   } // stop early
   //   const getContacts = async () => {
   //     const data = await getDocs(contactsCollectionRef);
   //     const items = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+
   //     setContacts(items);
   //   };
 
@@ -254,7 +258,10 @@ const Emails = () => {
               <Text>{contact.company}</Text>
               <Text>{contact.name}</Text> <div>{contact.number}</div>
             </NameColumn>
-            <Text onClick={() => navigator.clipboard.writeText(contact.email)}>
+            <Text
+              className="contact-email"
+              onClick={() => navigator.clipboard.writeText(contact.email)}
+            >
               {contact.email}
             </Text>
             <UpdateOrDeleteContact>
