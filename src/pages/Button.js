@@ -7,6 +7,7 @@ const ButtonForAll = styled.button`
   text-align: center;
   margin-right: ${(props) => props.marginRight};
   cursor: pointer;
+  border-radius: 10px;
 
   @media only screen and (max-width: 500px) {
     width: 50px;

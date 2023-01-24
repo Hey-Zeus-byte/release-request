@@ -19,6 +19,7 @@ const Links = styled.div`
 
   .link {
     text-decoration: none;
+    color: black;
   }
 `;
 
@@ -26,7 +27,7 @@ const NavBar = () => {
   return (
     <ContentWrapper>
       <NavBarContainer>
-        <Title>Contact List</Title>
+        <Title>GSCF</Title>
         <Links>
           <Link to="/" className="link">
             Emails

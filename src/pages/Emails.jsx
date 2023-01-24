@@ -93,6 +93,8 @@ const BlackLine = styled.div`
 `;
 
 const ModalContainer = styled.div`
+  display: flex;
+  align-items: center;
   position: absolute;
   top: 0;
   left: 0;
@@ -108,92 +110,63 @@ const Modal = styled.div`
   justify-content: center;
   height: 400px;
   width: 100%;
-  background-color: grey;
+  background: rgba(205, 205, 205);
 `;
 
 const UpdateOrDeleteContact = styled.div``;
 
 const NameColumn = styled.div``;
 
-const SearchNote = styled.input``;
+const SearchNote = styled.input`
+  display: flex;
+  width: 400px;
+
+  @media only screen and (max-width: 500px) {
+    width: 250px;
+  }
+`;
 
 const Emails = () => {
   const [contacts, setContacts] = useState([
-    {
-      name: "jesus",
-      email: "jesus@gzuz.com",
-      company: "gzuz company",
-      number: "123-456-7890",
-    },
-    {
-      name: "jesus valdez",
-      email: "jesusvaldez30000000000@gzuz.com",
-      company: "gzuz company",
-      number: "123-456-7890",
-    },
-    {
-      name: "jesus valdez jr de la mariposa fuentes caldos",
-      email: "jesusvaldez@gzuz.com",
-      company: "gzuz company",
-      number: "123-456-7890",
-    },
+    // {
+    //   name: "jesus",
+    //   email: "jesus@gzuz.com",
+    //   company: "gzuz company",
+    //   number: "123-456-7890",
+    // },
+    // {
+    //   name: "jesus valdez",
+    //   email: "jesusvaldez30000000000@gzuz.com",
+    //   company: "gzuz company",
+    //   number: "123-456-7890",
+    // },
+    // {
+    //   name: "jesus valdez jr de la mariposa fuentes caldos",
+    //   email: "jesusvaldez@gzuz.com",
+    //   company: "bambam company",
+    //   number: "123-456-7890",
+    // },
   ]);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [company, setCompany] = useState("");
-  const [number, setNumber] = useState("");
   const [filteredContacts, setFilteredContacts] = useState("");
   const [searchShow, setSearchShow] = useState(true);
   const [selectedContact, setSelectedContact] = useState();
-  const [updateName, setUpdateName] = useState("");
-  const [updateEmail, setUpdateEmail] = useState("");
-  const [updateCompany, setUpdateCompany] = useState("");
-  const [updateNumber, setUpdateNumber] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [deleteIsOpen, setDeleteIsOpen] = useState(false);
 
   const contactsCollectionRef = collection(db, "contacts");
 
-  // useEffect(() => {
-  //   if (contacts.length) {
-  //     return;
-  //   } // stop early
-  //   const getContacts = async () => {
-  //     const data = await getDocs(contactsCollectionRef);
-  //     const items = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  useEffect(() => {
+    if (contacts.length) {
+      return;
+    } // stop early
+    const getContacts = async () => {
+      const data = await getDocs(contactsCollectionRef);
+      const items = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
-  //     setContacts(items);
-  //   };
+      setContacts(items);
+    };
 
-  //   getContacts();
-  // }, []);
-
-  const createContact = async () => {
-    await addDoc(contactsCollectionRef, {
-      name: name,
-      email: email,
-      company: company,
-      number: number,
-    }).catch((err) => {
-      alert(err);
-      console.error(err);
-    });
-  };
-
-  const deleteContact = async (id) => {
-    const bidDoc = doc(db, "contacts", id);
-    await deleteDoc(bidDoc);
-  };
-
-  const updateContact = async (id) => {
-    const contactDoc = doc(db, "contacts", id);
-    await updateDoc(contactDoc, {
-      name: updateName,
-      email: updateEmail,
-      company: updateCompany,
-      number: updateNumber,
-    }).then(() => setSelectedContact(null));
-  };
+    getContacts();
+  }, []);
 
   const handleChange = (e) => {
     const searchWord = e.target.value;
@@ -209,9 +182,28 @@ const Emails = () => {
   };
 
   const CreateModal = () => {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [company, setCompany] = useState("");
+    const [number, setNumber] = useState("");
+
+    const createContact = async () => {
+      await addDoc(contactsCollectionRef, {
+        name: name,
+        email: email,
+        company: company,
+        number: number,
+      }).catch((err) => {
+        alert(err);
+        console.error(err);
+      });
+      window.location.reload();
+    };
+
     return (
       <ModalContainer>
         <Modal>
+          <h2>Enter Contact Information:</h2>
           <Input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -232,43 +224,61 @@ const Emails = () => {
             onChange={(e) => setNumber(e.target.value)}
             placeholder="Enter contact number: "
           ></Input>
-          <Button
-            text="Add Contact"
-            color="lightgreen"
-            onClick={() => createContact()}
-          >
-            Add Contact
-          </Button>
-          <Button text="Close" color="red" onClick={() => setIsOpen(!isOpen)}>
-            Add Contact
-          </Button>
+          <div>
+            <Button
+              text="Add Contact"
+              color="lightgreen"
+              onClick={() => createContact()}
+            >
+              Add Contact
+            </Button>
+            <Button text="Close" color="red" onClick={() => setIsOpen(!isOpen)}>
+              Add Contact
+            </Button>
+          </div>
         </Modal>
       </ModalContainer>
     );
   };
 
   const UpdateModal = ({ contact }) => {
+    const [updateName, setUpdateName] = useState(contact.name);
+    const [updateEmail, setUpdateEmail] = useState(contact.email);
+    const [updateCompany, setUpdateCompany] = useState(contact.company);
+    const [updateNumber, setUpdateNumber] = useState(contact.number);
+
+    const updateContact = async (id) => {
+      const contactDoc = doc(db, "contacts", id);
+      await updateDoc(contactDoc, {
+        name: updateName,
+        email: updateEmail,
+        company: updateCompany,
+        number: updateNumber,
+      });
+      window.location.reload();
+    };
+
     return (
       <ModalContainer>
         <Modal>
           <h4>Update contact information: </h4>
           <Input
-            value={contact.name}
+            value={updateName}
             onChange={(e) => setUpdateName(e.target.value)}
             placeholder="Enter contact name: "
           ></Input>
           <Input
-            value={contact.email}
+            value={updateEmail}
             onChange={(e) => setUpdateEmail(e.target.value)}
             placeholder="Enter contact email: "
           ></Input>
           <Input
-            value={contact.company}
+            value={updateCompany}
             onChange={(e) => setUpdateCompany(e.target.value)}
             placeholder="Enter contact company: "
           ></Input>
           <Input
-            value={contact.number}
+            value={updateNumber}
             onChange={(e) => setUpdateNumber(e.target.value)}
             placeholder="Enter contact number: "
           ></Input>
@@ -289,15 +299,29 @@ const Emails = () => {
     );
   };
 
-  const DeleteModal = () => {
+  const DeleteModal = ({ contact }) => {
+    const deleteContact = async (id) => {
+      const bidDoc = doc(db, "contacts", id);
+      await deleteDoc(bidDoc);
+      window.location.reload();
+    };
+
     return (
       <ModalContainer>
         <Modal>
-          <Button
-            text="Delete Contact"
-            color="red"
-            onClick={() => deleteContact(contact.id)}
-          ></Button>
+          <h2>Are you sure?</h2>
+          <div>
+            <Button
+              text="Yes"
+              color="green"
+              onClick={() => deleteContact(contact.id)}
+            ></Button>
+            <Button
+              text="No"
+              color="red"
+              onClick={() => setSelectedContact(null)}
+            ></Button>
+          </div>
         </Modal>
       </ModalContainer>
     );
@@ -323,36 +347,42 @@ const Emails = () => {
       </InputWrapper>
       {contactsToRender.map((contact) => {
         return (
-          <Contact key={contact.id}>
-            <NameColumn>
-              <Text>{contact.company}</Text>
-              <Text>{contact.name}</Text> <div>{contact.number}</div>
-            </NameColumn>
-            <Text
-              className="contact-email"
-              onClick={() => navigator.clipboard.writeText(contact.email)}
-            >
-              {contact.email}
-            </Text>
-            <UpdateOrDeleteContact>
-              <Button
-                color="lightblue"
-                text="Update"
-                onClick={() => setSelectedContact(contact)}
-              ></Button>
-              <Button
-                text="Delete"
-                color="red"
-                onClick={() => setDeleteIsOpen(!deleteIsOpen)}
-              ></Button>
-            </UpdateOrDeleteContact>
-          </Contact>
+          <>
+            <Contact key={contact.id}>
+              <NameColumn>
+                <Text>{contact.company}</Text>
+                <Text>{contact.name}</Text> <div>{contact.number}</div>
+              </NameColumn>
+              <Text
+                className="contact-email"
+                onClick={() => navigator.clipboard.writeText(contact.email)}
+              >
+                {contact.email}
+              </Text>
+              <UpdateOrDeleteContact>
+                <Button
+                  color="lightblue"
+                  text="Update"
+                  onClick={() => setSelectedContact(contact)}
+                ></Button>
+                <Button
+                  text="Delete"
+                  color="red"
+                  onClick={() => setSelectedContact(contact)}
+                ></Button>
+              </UpdateOrDeleteContact>
+              {selectedContact ? (
+                <UpdateModal contact={selectedContact} />
+              ) : null}
+              {isOpen ? <CreateModal /> : null}
+              {selectedContact ? (
+                <DeleteModal contact={selectedContact} />
+              ) : null}
+            </Contact>
+            <BlackLine />
+          </>
         );
       })}
-      <BlackLine />
-      {selectedContact ? <UpdateModal contact={selectedContact} /> : null}
-      {isOpen ? <CreateModal /> : null}
-      {deleteIsOpen ? <DeleteModal id={contact.id} /> : null}
     </ContentWrapper>
   );
 };

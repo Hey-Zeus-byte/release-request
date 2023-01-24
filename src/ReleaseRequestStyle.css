@@ -1,5 +1,5 @@
 .ReleaseRequest {
-  color: lightcyan;
+  color: black;
 }
 
 .header {
@@ -12,7 +12,7 @@
 }
 
 body {
-  background-color: tan;
+  background-color: rgba(200, 200, 200, 0.19);
 }
 
 .inputs {
