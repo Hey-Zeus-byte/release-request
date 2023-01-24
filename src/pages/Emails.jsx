@@ -14,7 +14,7 @@ import { ContentWrapper } from "./ContentWrapper";
 
 const InputWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
 
   @media only screen and (max-width: 500px) {
@@ -92,11 +92,23 @@ const BlackLine = styled.div`
   margin-top: 10px;
 `;
 
+const ModalContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+`;
+
 const Modal = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   height: 400px;
   width: 100%;
-  background-color: white;
+  background-color: grey;
 `;
 
 const UpdateOrDeleteContact = styled.div``;
@@ -113,6 +125,18 @@ const Emails = () => {
       company: "gzuz company",
       number: "123-456-7890",
     },
+    {
+      name: "jesus valdez",
+      email: "jesusvaldez30000000000@gzuz.com",
+      company: "gzuz company",
+      number: "123-456-7890",
+    },
+    {
+      name: "jesus valdez jr de la mariposa fuentes caldos",
+      email: "jesusvaldez@gzuz.com",
+      company: "gzuz company",
+      number: "123-456-7890",
+    },
   ]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -121,6 +145,12 @@ const Emails = () => {
   const [filteredContacts, setFilteredContacts] = useState("");
   const [searchShow, setSearchShow] = useState(true);
   const [selectedContact, setSelectedContact] = useState();
+  const [updateName, setUpdateName] = useState("");
+  const [updateEmail, setUpdateEmail] = useState("");
+  const [updateCompany, setUpdateCompany] = useState("");
+  const [updateNumber, setUpdateNumber] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [deleteIsOpen, setDeleteIsOpen] = useState(false);
 
   const contactsCollectionRef = collection(db, "contacts");
 
@@ -158,11 +188,11 @@ const Emails = () => {
   const updateContact = async (id) => {
     const contactDoc = doc(db, "contacts", id);
     await updateDoc(contactDoc, {
-      name: name,
-      email: email,
-      company: company,
-      number: number,
-    });
+      name: updateName,
+      email: updateEmail,
+      company: updateCompany,
+      number: updateNumber,
+    }).then(() => setSelectedContact(null));
   };
 
   const handleChange = (e) => {
@@ -178,38 +208,98 @@ const Emails = () => {
     }
   };
 
-  const UpdateModal = ({ contact, updateContact }) => {
+  const CreateModal = () => {
     return (
-      <Modal>
-        <h4>This is the modal</h4>
-        <Input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Enter contact name: "
-        ></Input>
-        <Input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter contact email: "
-        ></Input>
-        <Input
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-          placeholder="Enter contact company: "
-        ></Input>
-        <Input
-          value={number}
-          onChange={(e) => setNumber(e.target.value)}
-          placeholder="Enter contact number: "
-        ></Input>
-        <Button
-          text="Add Contact"
-          color="lightgreen"
-          onClick={() => updateContact(contact.id)}
-        >
-          Add Contact
-        </Button>
-      </Modal>
+      <ModalContainer>
+        <Modal>
+          <Input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter contact name: "
+          ></Input>
+          <Input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter contact email: "
+          ></Input>
+          <Input
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+            placeholder="Enter contact company: "
+          ></Input>
+          <Input
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
+            placeholder="Enter contact number: "
+          ></Input>
+          <Button
+            text="Add Contact"
+            color="lightgreen"
+            onClick={() => createContact()}
+          >
+            Add Contact
+          </Button>
+          <Button text="Close" color="red" onClick={() => setIsOpen(!isOpen)}>
+            Add Contact
+          </Button>
+        </Modal>
+      </ModalContainer>
+    );
+  };
+
+  const UpdateModal = ({ contact }) => {
+    return (
+      <ModalContainer>
+        <Modal>
+          <h4>Update contact information: </h4>
+          <Input
+            value={contact.name}
+            onChange={(e) => setUpdateName(e.target.value)}
+            placeholder="Enter contact name: "
+          ></Input>
+          <Input
+            value={contact.email}
+            onChange={(e) => setUpdateEmail(e.target.value)}
+            placeholder="Enter contact email: "
+          ></Input>
+          <Input
+            value={contact.company}
+            onChange={(e) => setUpdateCompany(e.target.value)}
+            placeholder="Enter contact company: "
+          ></Input>
+          <Input
+            value={contact.number}
+            onChange={(e) => setUpdateNumber(e.target.value)}
+            placeholder="Enter contact number: "
+          ></Input>
+          <UpdateOrDeleteContact>
+            <Button
+              text="Update Contact"
+              color="lightgreen"
+              onClick={() => updateContact(contact.id)}
+            ></Button>
+            <Button
+              text="Close"
+              color="red"
+              onClick={() => setSelectedContact(null)}
+            ></Button>
+          </UpdateOrDeleteContact>
+        </Modal>
+      </ModalContainer>
+    );
+  };
+
+  const DeleteModal = () => {
+    return (
+      <ModalContainer>
+        <Modal>
+          <Button
+            text="Delete Contact"
+            color="red"
+            onClick={() => deleteContact(contact.id)}
+          ></Button>
+        </Modal>
+      </ModalContainer>
     );
   };
 
@@ -218,38 +308,18 @@ const Emails = () => {
   return (
     <ContentWrapper>
       <InputWrapper>
-        <Input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Enter contact name: "
-        ></Input>
-        <Input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter contact email: "
-        ></Input>
-        <Input
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-          placeholder="Enter contact company: "
-        ></Input>
-        <Input
-          value={number}
-          onChange={(e) => setNumber(e.target.value)}
-          placeholder="Enter contact number: "
-        ></Input>
-        <Button
-          text="Add Contact"
-          color="lightgreen"
-          onClick={() => createContact()}
-        >
-          Add Contact
-        </Button>
         <SearchNote
           placeholder="Search for company..."
           type="text"
           onChange={handleChange}
         />
+        <Button
+          text="Add Contact"
+          color="lightgreen"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          Add Contact
+        </Button>
       </InputWrapper>
       {contactsToRender.map((contact) => {
         return (
@@ -273,14 +343,16 @@ const Emails = () => {
               <Button
                 text="Delete"
                 color="red"
-                onClick={() => deleteContact(contact.id)}
+                onClick={() => setDeleteIsOpen(!deleteIsOpen)}
               ></Button>
             </UpdateOrDeleteContact>
           </Contact>
         );
       })}
       <BlackLine />
-      {/* <UpdateModal id={selectedContact} updateContact={updateContact} /> */}
+      {selectedContact ? <UpdateModal contact={selectedContact} /> : null}
+      {isOpen ? <CreateModal /> : null}
+      {deleteIsOpen ? <DeleteModal id={contact.id} /> : null}
     </ContentWrapper>
   );
 };

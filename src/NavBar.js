@@ -1,19 +1,41 @@
 import React from "react";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { ContentWrapper } from "./pages/ContentWrapper";
-import "./NavBarStyle.css";
+
+const NavBarContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Title = styled.p`
+  font-size: 20px;
+`;
+
+const Links = styled.div`
+  display: flex;
+  gap: 100px;
+
+  .link {
+    text-decoration: none;
+  }
+`;
 
 const NavBar = () => {
   return (
     <ContentWrapper>
-      <ul className="NavBar">
-        <li>
-          <Link to="/"> Release Request </Link>
-        </li>
-        <li>
-          <Link to="/emails"> Emails </Link>
-        </li>
-      </ul>
+      <NavBarContainer>
+        <Title>Contact List</Title>
+        <Links>
+          <Link to="/" className="link">
+            Emails
+          </Link>
+          <Link to="/release-request" className="link">
+            Release Request
+          </Link>
+        </Links>
+      </NavBarContainer>
     </ContentWrapper>
   );
 };
