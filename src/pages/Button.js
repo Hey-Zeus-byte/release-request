@@ -10,7 +10,9 @@ const ButtonForAll = styled.button`
   border-radius: 10px;
 
   @media only screen and (max-width: 500px) {
-    width: 50px;
+    width: 55px;
+    font-size: 10px;
+    font-weight: 700;
   }
 `;
 

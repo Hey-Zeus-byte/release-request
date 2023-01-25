@@ -18,7 +18,7 @@ const InputWrapper = styled.div`
   align-items: center;
 
   @media only screen and (max-width: 500px) {
-    align-items: flex-start;
+    justify-content: space-evenly;
   }
 `;
 
@@ -58,7 +58,7 @@ const Contact = styled.div`
 
   @media only screen and (max-width: 500px) {
     .contact-text {
-      font-size: 11px;
+      font-size: 8px;
     }
 
     .contact-email {
@@ -79,7 +79,7 @@ const Text = styled.p`
   font-weight: 600;
 
   @media only screen and (max-width: 500px) {
-    font-size: 20px;
+    font-size: 12px;
     font-weight: 500;
   }
 `;
@@ -113,9 +113,20 @@ const Modal = styled.div`
   background: rgba(205, 205, 205);
 `;
 
-const UpdateOrDeleteContact = styled.div``;
+const UpdateOrDeleteContact = styled.div`
+  @media only screen and (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+`;
 
-const NameColumn = styled.div``;
+const Column = styled.div`
+  @media only screen and (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
 
 const SearchNote = styled.input`
   display: flex;
@@ -123,6 +134,20 @@ const SearchNote = styled.input`
 
   @media only screen and (max-width: 500px) {
     width: 250px;
+  }
+`;
+
+const EmailTag = styled(Text)`
+  font-size: 20px;
+  @media only screen and (max-width: 500px) {
+    font-size: 10px;
+  }
+`;
+
+const CompanyText = styled(Text)`
+  font-size: 25px;
+  @media only screen and (max-width: 500px) {
+    font-size: 13px;
   }
 `;
 
@@ -151,6 +176,7 @@ const Emails = () => {
   const [searchShow, setSearchShow] = useState(true);
   const [selectedContact, setSelectedContact] = useState();
   const [isOpen, setIsOpen] = useState(false);
+  const [contactToBeDeleted, setContactToBeDeleted] = useState();
 
   const contactsCollectionRef = collection(db, "contacts");
 
@@ -319,7 +345,7 @@ const Emails = () => {
             <Button
               text="No"
               color="red"
-              onClick={() => setSelectedContact(null)}
+              onClick={() => setContactToBeDeleted(null)}
             ></Button>
           </div>
         </Modal>
@@ -349,16 +375,19 @@ const Emails = () => {
         return (
           <>
             <Contact key={contact.id}>
-              <NameColumn>
-                <Text>{contact.company}</Text>
-                <Text>{contact.name}</Text> <div>{contact.number}</div>
-              </NameColumn>
-              <Text
-                className="contact-email"
-                onClick={() => navigator.clipboard.writeText(contact.email)}
-              >
-                {contact.email}
-              </Text>
+              <Column>
+                <CompanyText>{contact.company}</CompanyText>
+                <Text>{contact.name}</Text>
+              </Column>
+              <Column>
+                <EmailTag
+                  className="contact-email"
+                  onClick={() => navigator.clipboard.writeText(contact.email)}
+                >
+                  {contact.email}
+                </EmailTag>
+                <Text>{contact.number}</Text>
+              </Column>
               <UpdateOrDeleteContact>
                 <Button
                   color="lightblue"
@@ -368,15 +397,15 @@ const Emails = () => {
                 <Button
                   text="Delete"
                   color="red"
-                  onClick={() => setSelectedContact(contact)}
+                  onClick={() => setContactToBeDeleted(contact)}
                 ></Button>
               </UpdateOrDeleteContact>
               {selectedContact ? (
                 <UpdateModal contact={selectedContact} />
               ) : null}
               {isOpen ? <CreateModal /> : null}
-              {selectedContact ? (
-                <DeleteModal contact={selectedContact} />
+              {contactToBeDeleted ? (
+                <DeleteModal contact={contactToBeDeleted} />
               ) : null}
             </Contact>
             <BlackLine />
